@@ -1,0 +1,35 @@
+name: Ejecutar pruebas Karate API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-karate-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Construir y ejecutar pruebas
+        run: mvn clean test
+
+      - name: Comprimir reporte Karate
+        run: zip -r KarateReports.zip target/karate-reports
+
+      - name: Subir reporte como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: KarateReports
+          path: KarateReports.zip
