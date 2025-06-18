@@ -22,7 +22,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Construir y ejecutar pruebas
+      - name: Ejecutar pruebas Karate
         run: mvn clean test
 
       - name: Comprimir reporte Karate
