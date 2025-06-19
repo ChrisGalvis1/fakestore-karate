@@ -23,10 +23,15 @@ jobs:
           java-version: '17'
 
       - name: Ejecutar pruebas Karate
-        run: mvn clean test
+        run: mvn clean test -Dkarate.outputHtmlReport=true
 
       - name: Comprimir reporte Karate
-        run: zip -r KarateReports.zip target/karate-reports
+        run: |
+          if [ -d "target/karate-reports" ]; then
+            zip -r KarateReports.zip target/karate-reports
+          else
+            echo "No se encontró el directorio target/karate-reports. Saltando compresión."
+          fi
 
       - name: Subir reporte como artefacto
         uses: actions/upload-artifact@v4
