@@ -6,6 +6,6 @@ public class RunnerFakeStore {
 
     @Karate.Test
     Karate runAllTests() {
-        return Karate.run("classpath:features").relativeTo(getClass());
+        return Karate.run("classpath:features");
     }
 }
